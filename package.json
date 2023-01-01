@@ -1,0 +1,25 @@
+{
+  "name": "uee-system",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "wsserver": "node ./WsServer/index.js",
+    "start": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ellementul/uee-system.git"
+  },
+  "author": "Ellementul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ellementul/uee-system/issues"
+  },
+  "homepage": "https://github.com/ellementul/uee-system#readme",
+  "dependencies": {
+    "@ellementul/uee": "^1.0.1",
+    "ws": "^8.11.0"
+  }
+}
