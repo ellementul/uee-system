@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "wsserver": "node ./WsServer/index.js",
-    "start": "node ./index.js",
+    "start": "node ./index.mjs",
     "test": "node node_modules/jest/bin/jest.js"
   },
   "repository": {
@@ -20,7 +19,8 @@
   "homepage": "https://github.com/ellementul/uee-system#readme",
   "dependencies": {
     "@ellementul/uee": "^1.0.1",
-    "ws": "^8.11.0"
+    "@ellementul/uee-ws-transport": "^0.7.0",
+    "zx": "^7.1.1"
   },
   "devDependencies": {
     "jest": "^29.3.1"
