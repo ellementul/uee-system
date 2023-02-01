@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ellementul/uee-system#readme",
   "dependencies": {
     "@ellementul/uee": "^1.0.1",
-    "@ellementul/uee-manager": "^0.7.0",
+    "@ellementul/uee-manager": "^0.8.2",
     "@ellementul/uee-ws-server": "^0.7.0",
     "@ellementul/uee-ws-transport": "^0.7.0",
     "@ellementul/ueetimeticker": "^1.2.0",

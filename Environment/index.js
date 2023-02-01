@@ -17,8 +17,8 @@ class UnitedEventsEnvironment {
     this._provider.setTransport(this._transport)
     this._manager.setProvider(this._provider)
   }
-  run() {
-    this._manager.start()
+  run(isHost = false) {
+    this._manager.start(!isHost)
   }
   reset() {
     this._manager.reset()
