@@ -1,8 +1,11 @@
 const WSServer = require('@ellementul/uee-ws-server/WsServer')
 const { WsTransport } = require('@ellementul/uee-ws-transport')
-const { Provider, Member, events: { connect } } = require('@ellementul/uee')
-const { Manager, readyEvent } = require('@ellementul/uee-manager')
-const { Ticker } = require('@ellementul/ueetimeticker')
+const { Provider, Member, events: { connect } } = require('@ellementul/uee-core')
+const { 
+  Manager, 
+  events: { readyMembers: readyEvent }
+} = require('@ellementul/uee-manager')
+const { Ticker } = require('@ellementul/uee-timeticker')
 const { UnitedEventsEnvironment: UEE } = require('./Environment')
 const { MockMember } = require('./FakeMember')
 
