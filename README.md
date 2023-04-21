@@ -158,14 +158,10 @@ const membersList = {
 ##### Create Environment
 ```js
 const { WsTransport } = require('@ellementul/uee-ws-transport')
-const { Provider } = require('@ellementul/uee-core')
-const { Manager } = require('@ellementul/uee-manager')
 
 const membersList = {...}
 env = new UEE({
-  Transport: WsTransport,  //If there is multiplayer
-  Provider, // Manage Events
-  Manager, // Manage instances of Members
+  Transport: WsTransport,  //Required if there is multiplayer
   membersList
 })
 ```

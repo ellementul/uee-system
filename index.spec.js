@@ -31,8 +31,23 @@ describe('System Testing', () => {
       Transport: WsTransport,
       Provider,
       Manager,
-      membersList,
-      signalServerAddress: server.domain.url
+      membersList
+    })
+    expect(env).toBeDefined()
+  });
+
+  test('Simple Constructor Env', () => {
+    const membersList = {
+      roles: [
+        {
+          role: "TestRole",
+          memberConstructor: Member
+        }
+      ]
+    }
+
+    const env = new UEE({
+      membersList
     })
     expect(env).toBeDefined()
   });
@@ -182,7 +197,6 @@ describe('Integration fo two envs', () => {
 
     env = new UEE({
       Transport: WsTransport,
-      Provider,
       Manager: MockMember(Manager, spyingEvents),
       membersList,
       signalServerAddress: server.domain.url,
@@ -193,8 +207,6 @@ describe('Integration fo two envs', () => {
     })
     envTwo = new UEE({
       Transport: WsTransport,
-      Provider,
-      Manager,
       membersList,
       signalServerAddress: server.domain.url
     })
