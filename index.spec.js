@@ -18,7 +18,7 @@ describe('System Testing', () => {
   });
 
   test('Constructor Env', () => {
-    const membresList = {
+    const membersList = {
       roles: [
         {
           role: "TestRole",
@@ -31,14 +31,14 @@ describe('System Testing', () => {
       Transport: WsTransport,
       Provider,
       Manager,
-      membresList,
-      signalServerAdderss: server.domain.url
+      membersList,
+      signalServerAddress: server.domain.url
     })
     expect(env).toBeDefined()
   });
 
   test('Logging', done => {
-    const membresList = {
+    const membersList = {
       roles: [
         {
           role: "TestRole",
@@ -55,8 +55,8 @@ describe('System Testing', () => {
       Transport: WsTransport,
       Provider,
       Manager,
-      membresList,
-      signalServerAdderss: server.domain.url,
+      membersList,
+      signalServerAddress: server.domain.url,
       logging: logCallback
     })
   });
@@ -72,7 +72,7 @@ describe('System Testing', () => {
     const spyingEvents = [
       [connect, connectCallback]
     ]
-    const membresList = {
+    const membersList = {
       roles: [
         {
           role: "Ticker",
@@ -89,8 +89,8 @@ describe('System Testing', () => {
       Transport: WsTransport,
       Provider,
       Manager,
-      membresList,
-      signalServerAdderss: server.domain.url
+      membersList,
+      signalServerAddress: server.domain.url
     })
     env.run(true)
   });
@@ -120,7 +120,7 @@ describe('Integration fo two envs', () => {
       [readyEvent, readyCallback]
     ]
 
-    const membresList = {
+    const membersList = {
       roles: [
         {
           role: "Ticker",
@@ -137,10 +137,10 @@ describe('Integration fo two envs', () => {
       Transport: WsTransport,
       Provider,
       Manager: MockMember(Manager, spyingEvents),
-      membresList,
-      signalServerAdderss: server.domain.url,
+      membersList,
+      signalServerAddress: server.domain.url,
       logging: payload => {
-        if(payload.message.entity == "MembersList")
+        if(payload.message.entity == "membersList")
           console.log(payload)
       }
     })
@@ -148,8 +148,8 @@ describe('Integration fo two envs', () => {
       Transport: WsTransport,
       Provider,
       Manager,
-      membresList,
-      signalServerAdderss: server.domain.url
+      membersList,
+      signalServerAddress: server.domain.url
     })
     env.run(true)
     envTwo.run(false)

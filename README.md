@@ -142,7 +142,7 @@ You need to define the list of Roles and Members for them to create the Environm
 const { Ticker } = require('@ellementul/uee-timeticker')
 const { YourMemberClass } = require('...')
 
-const membresList = {
+const membersList = {
   roles: [
     { // Required, it will create time events
       role: "Ticker",
@@ -161,13 +161,13 @@ const { WsTransport } = require('@ellementul/uee-ws-transport')
 const { Provider } = require('@ellementul/uee-core')
 const { Manager } = require('@ellementul/uee-manager')
 
-const membresList = {...}
+const membersList = {...}
 env = new UEE({
   Transport: WsTransport,
   Provider, // Manage Events
   Manager, // Manage instances of Members
-  membresList,
-  signalServerAdderss: "Url of Server for Transport"
+  membersList,
+  signalServerAddress: "Url of Server for Transport"
   // If server is local,
   // than signalServerAdderss == server.domain.url
 })

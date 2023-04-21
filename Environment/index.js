@@ -3,13 +3,13 @@ class UnitedEventsEnvironment {
     Transport,
     Provider,
     Manager,
-    membresList,
-    signalServerAdderss,
+    membersList,
+    signalServerAddress,
     logging
   }) {
-    this._transport = new Transport(signalServerAdderss)
+    this._transport = new Transport(signalServerAddress)
     this._provider = new Provider
-    this._manager = new Manager(membresList)
+    this._manager = new Manager(membersList)
 
     if(logging)
       this._provider.setLogging(logging)
