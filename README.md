@@ -163,20 +163,26 @@ const { Manager } = require('@ellementul/uee-manager')
 
 const membersList = {...}
 env = new UEE({
-  Transport: WsTransport,
+  Transport: WsTransport,  //If there is multiplayer
   Provider, // Manage Events
   Manager, // Manage instances of Members
-  membersList,
-  signalServerAddress: "Url of Server for Transport"
-  // If server is local,
-  // than signalServerAdderss == server.domain.url
+  membersList
 })
 ```
 
 #### Run the Environment
+##### If you run singleplayer
 ```js
-env.run(true)
-// If one host is run already
+env.run({ isHost: true })
+```
+##### If you run multiplayer
+```js
+// Start host
+env.run({
+  isHost: true,
+  signalServerAddress: server.domain.url
+})
+
 // Start as client
-// env.run(false)
+env.run({signalServerAddress: server.domain.url})
 ```

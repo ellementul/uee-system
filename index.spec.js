@@ -64,10 +64,12 @@ describe('System Testing', () => {
       Provider,
       Manager,
       membersList,
-      signalServerAddress: server.domain.url,
       logging: logCallback
     })
-    env.run(true)
+    env.run({
+      isHost: true,
+      signalServerAddress: server.domain.url
+    })
   });
 
   test('Running Env', done => {
@@ -98,10 +100,46 @@ describe('System Testing', () => {
       Transport: WsTransport,
       Provider,
       Manager,
-      membersList,
+      membersList
+    })
+    env.run({
+      isHost: true,
       signalServerAddress: server.domain.url
     })
-    env.run(true)
+  });
+
+  test('Running Env without Transport', done => {
+    let env 
+    const connectCallback = jest.fn(({ role, state, uuid }) => {
+      if(role == "Member" && state == 'Connected'){
+        env.reset()
+        done()
+      }
+    })
+    const spyingEvents = [
+      [connect, connectCallback]
+    ]
+    const membersList = {
+      roles: [
+        {
+          role: "Ticker",
+          memberConstructor: Ticker
+        },
+        {
+          role: "Member",
+          memberConstructor: MockMember(Member, spyingEvents)
+        }
+      ]
+    }
+
+    env = new UEE({
+      Provider,
+      Manager,
+      membersList
+    })
+    env.run({
+      isHost: true
+    })
   });
 
   afterAll(async () => {
@@ -160,8 +198,11 @@ describe('Integration fo two envs', () => {
       membersList,
       signalServerAddress: server.domain.url
     })
-    env.run(true)
-    envTwo.run(false)
+    env.run({
+      isHost: true,
+      signalServerAddress: server.domain.url
+    })
+    envTwo.run({signalServerAddress: server.domain.url})
   });
 
   afterAll(async () => {
