@@ -38,20 +38,28 @@ describe('System Testing', () => {
   });
 
   test('Logging', done => {
+    let env
     const membersList = {
       roles: [
         {
-          role: "TestRole",
-          memberConstructor: Member
+          role: "Ticker",
+          memberConstructor: Ticker
         }
       ]
     }
 
-    const logCallback = jest.fn(data => {
-      expect(data).toBeDefined()
-      done()
+    const logCallback = jest.fn(({ message: { system, entity } }) => {
+      expect(system).toBeDefined()
+      expect(entity).toBeDefined()
+
+      if(system == 'Cooperation'
+        && entity == 'MembersList'
+      ) {
+        env.reset()
+        done()
+      }
     })
-    new UEE({
+    env = new UEE({
       Transport: WsTransport,
       Provider,
       Manager,
@@ -59,6 +67,7 @@ describe('System Testing', () => {
       signalServerAddress: server.domain.url,
       logging: logCallback
     })
+    env.run(true)
   });
 
   test('Running Env', done => {

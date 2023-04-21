@@ -13,11 +13,10 @@ class UnitedEventsEnvironment {
 
     if(logging)
       this._provider.setLogging(logging)
-
-    this._provider.setTransport(this._transport)
-    this._manager.setProvider(this._provider)
   }
   run(isHost = false) {
+    this._provider.setTransport(this._transport)
+    this._manager.setProvider(this._provider)
     this._manager.start(!isHost)
   }
   reset() {
