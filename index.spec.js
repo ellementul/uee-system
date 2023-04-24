@@ -218,4 +218,40 @@ describe('Logging Events', () => {
       isHost: true
     })
   });
+
+  test('Erros', done => {
+    let env
+    const error_name = 'Testing Error'
+    const membersList = {
+      roles: [
+        {
+          role: "Ticker",
+          memberConstructor: Ticker
+        },
+        {
+          role: "Member",
+          memberConstructor: class ErrorMember {
+            constructor () {
+              throw new Error(error_name)
+            }
+          }
+        }
+      ]
+    }
+
+    console.error = jest.fn(({ message: { system, entity } }) => {
+      expect(system).toBe('Logging')
+      expect(entity).toBe('Error')
+
+      env.reset()
+      done()
+    })
+    env = new UEE({
+      membersList,
+      isShowErrors: true
+    })
+    env.run({
+      isHost: true
+    })
+  });
 });

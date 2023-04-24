@@ -1,4 +1,4 @@
-const { Provider: DefaultProvider } = require('@ellementul/uee-core')
+const { Provider: DefaultProvider, events: { error: errorLogEvent } } = require('@ellementul/uee-core')
 const { Manager: DefaultManager } = require('@ellementul/uee-manager')
 
 class UnitedEventsEnvironment {
@@ -7,14 +7,15 @@ class UnitedEventsEnvironment {
     Provider=DefaultProvider,
     Manager=DefaultManager,
     membersList,
-    logging
+    logging,
+    isShowErrors
   }) {
     this._Transport = Transport
     this._provider = new Provider
     this._manager = new Manager(membersList)
 
-    if(logging)
-      this._provider.setLogging(logging)
+    if(logging || isShowErrors)
+      this.setupLogging(logging, isShowErrors)
   }
 
   setupTransport(signalServerAddress) {
@@ -35,6 +36,25 @@ class UnitedEventsEnvironment {
 
   reset() {
     this._manager.reset()
+  }
+
+  setupLogging(logging, isShowErrors) {
+    if(logging && isShowErrors) {
+      this._provider.setLogging(payload => {
+        this.showErrors(payload)
+        logging(payload)
+      })
+    }
+    else if(logging) {
+      this._provider.setLogging(logging)
+    }
+    else if(isShowErrors) {
+      this._provider.setLogging(payload => this.showErrors(payload))
+    }
+  }
+  showErrors(payload) {
+    if(errorLogEvent.isValid(payload.message))
+      console.error(payload)
   }
 }
 
