@@ -52,41 +52,6 @@ describe('System Testing', () => {
     expect(env).toBeDefined()
   });
 
-  test('Logging', done => {
-    let env
-    const membersList = {
-      roles: [
-        {
-          role: "Ticker",
-          memberConstructor: Ticker
-        }
-      ]
-    }
-
-    const logCallback = jest.fn(({ message: { system, entity } }) => {
-      expect(system).toBeDefined()
-      expect(entity).toBeDefined()
-
-      if(system == 'Cooperation'
-        && entity == 'MembersList'
-      ) {
-        env.reset()
-        done()
-      }
-    })
-    env = new UEE({
-      Transport: WsTransport,
-      Provider,
-      Manager,
-      membersList,
-      logging: logCallback
-    })
-    env.run({
-      isHost: true,
-      signalServerAddress: server.domain.url
-    })
-  });
-
   test('Running Env', done => {
     let env 
     const connectCallback = jest.fn(({ role, state, uuid }) => {
@@ -219,5 +184,38 @@ describe('Integration fo two envs', () => {
 
   afterAll(async () => {
     await server.close()
+  });
+});
+
+describe('Logging Events', () => {
+  test('Logging', done => {
+    let env
+    const membersList = {
+      roles: [
+        {
+          role: "Ticker",
+          memberConstructor: Ticker
+        }
+      ]
+    }
+
+    const logCallback = jest.fn(({ message: { system, entity } }) => {
+      expect(system).toBeDefined()
+      expect(entity).toBeDefined()
+
+      if(system == 'Cooperation'
+        && entity == 'MembersList'
+      ) {
+        env.reset()
+        done()
+      }
+    })
+    env = new UEE({
+      membersList,
+      logging: logCallback
+    })
+    env.run({
+      isHost: true
+    })
   });
 });
