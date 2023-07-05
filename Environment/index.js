@@ -1,5 +1,6 @@
 const { Provider: DefaultProvider, events: { error: errorLogEvent } } = require('@ellementul/uee-core')
-const { Manager: DefaultManager } = require('@ellementul/uee-manager')
+const { Manager: DefaultManager } = require('@ellementul/simple-uee-manager')
+const { Ticker } = require('@ellementul/uee-timeticker')
 
 class UnitedEventsEnvironment {
   constructor({
@@ -23,18 +24,25 @@ class UnitedEventsEnvironment {
     this._provider.setTransport(this._transport)
   }
 
-  run({ isHost = false, signalServerAddress = null}) {
-    if(!isHost && !signalServerAddress)
-      throw new Error("You cannot run Env with isHost = false, signalServerAddress = null")
+  run({ isHost = false, signalServerAddress = null} = {}) {
 
     if(signalServerAddress)
       this.setupTransport(signalServerAddress)
 
+    if(!signalServerAddress || isHost) {
+      this._tiсker = new Ticker
+      this._tiсker.setProvider(this._provider)
+      this._tiсker.start({ delta: 24 })
+    }
+
     this._manager.setProvider(this._provider)
-    this._manager.start(!isHost)
+    this._manager.start()
   }
 
   reset() {
+    if(this._tiсker)
+      this._tiсker.reset()
+
     this._manager.reset()
   }
 
