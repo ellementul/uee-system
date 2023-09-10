@@ -1,3 +1,11 @@
 TODO:
-  - Запустить ГеймМастера
-  - Запустить игрока в каждой среде
+  - United Members Room Package(Room):
+    - It is package
+    - It is set of Members
+    - It can run in nodejs singly or not
+    - It can be merged with another room
+    - It include default Provider
+    - It exclude default transport
+    - It run via message "Open Room"
+  - Room with Manager
+  - Room with Vice Manager
