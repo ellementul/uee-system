@@ -1,10 +1,19 @@
-const { Member } = require('@ellementul/uee-core')
+const { Types, Member, events: { change: changeEvent } } = require('@ellementul/uee-core')
+const stateType = Types.Key.Def()
 
 class StateMember extends Member {
   constructor(states) {
     super()
 
-    this.states = new Set(states)
+    this.states = new Set
+
+    for (const state of states) {
+      const validError = stateType.test(state)
+      if(validError)
+        throw new TypeError(`Invalid type state! TypeError: ${JSON.stringify(validError, null, 2)}`)
+      
+      this.states.add(state)
+    }
 
     if(this.states.size < 1)
       throw new TypeError('You must have at least one beginning state for StateMember!')
@@ -31,7 +40,9 @@ class StateMember extends Member {
     if(!this.validState(state))
       this.invalidState(state)
       
-    return this.state = state
+    
+    this.state = state
+    this.send(changeEvent, { state })
   }
 
   onEventForState(event, callback, state, limit) {
