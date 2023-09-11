@@ -1,11 +1,12 @@
 TODO:
-  - United Members Room Package(Room):
-    - It is package
-    - It is set of Members
-    - It can run in nodejs singly or not
-    - It can be merged with another room
-    - It include default Provider
-    - It exclude default transport
-    - It run via message "Open Room"
-  - Room with Manager
-  - Room with Vice Manager
+  - Env:
+    - Env for nodejs:
+      - Get config(env vars and json and yaml files)
+      - Get room
+      - Start room with two members
+      - Fake transport and two different envs
+    - Env for browser:
+      - Get config(env vars, query params from url, json and yaml files)
+      - Get room
+      - Start room with two members
+      - Fake transport and two different envs
