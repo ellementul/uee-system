@@ -33,7 +33,7 @@ class UnitedEventsNode {
   setupLogging({ 
     logging = null,
     isShowErrors = true
-  }) {
+  } = {}) {
     if(logging && isShowErrors) {
       this.room.provider.setLogging(payload => {
         this.showErrors(payload)
