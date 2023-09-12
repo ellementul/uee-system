@@ -58,7 +58,7 @@ describe('Integration test', () => {
     constructor() {
       super()
 
-      this.onEvent(openEvent, this.run.bind(this))
+      this.onEvent(openEvent, () => this.run())
     }
 
     run() {

@@ -1,6 +1,6 @@
 {
   "name": "@ellementul/united-events-environment",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ellementul/uee-system#readme",
   "dependencies": {
     "@ellementul/simple-uee-manager": "^0.9.0",
-    "@ellementul/uee-core": "^1.2.2",
+    "@ellementul/uee-core": "^1.5.0",
     "@ellementul/uee-timeticker": "^1.4.0",
     "@ellementul/uee-ws-transport": "^0.7.2"
   },
