@@ -1,10 +1,10 @@
 const { Member, EventFactory, Types } = require('@ellementul/uee-core')
-const { MockMember } = require('../../FakeMember')
+const { MockMember } = require('../FakeMember')
 
-const { Room } = require('../../Room')
+const { Room } = require('../Room')
 
 const { UnitedEventsNode } = require('./index')
-const openEvent = require('../../Room/events/open-room')
+const openEvent = require('../Room/events/open-room')
 
 
 describe('Testing Constructor and Config', () => {

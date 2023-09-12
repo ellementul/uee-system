@@ -1,6 +1,5 @@
 module.exports = {
   ...require('./Environment'),
-  ...require('./Environment/nodejs'),
   ...require('./Room'),
   ...require('./StateMember'),
   ...require('./FakeMember'),

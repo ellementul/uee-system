@@ -1,15 +1,3 @@
 TODO:
-  - Room:
-    - Send config with events
-
-  - Env:
-    - Env for nodejs:
-      - Start room with two members:
-        - Build UEE(without transport)
-        - Run UEE and get "open room event"
-      - Fake transport and two different envs
-    - Env for browser:
-      - Get config(query params from url and json)
-      - Get room
-      - Start room with two members
-      - Fake transport and two different envs
+  - Include transport
+  - Switch transport between envs
