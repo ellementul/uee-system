@@ -1,8 +1,8 @@
 module.exports = {
   ...require('./Environment'),
   ...require('./Environment/nodejs'),
-  ...require('./Environment/Room'),
-  ...require('./Environment/StateMember'),
+  ...require('./Room'),
+  ...require('./StateMember'),
   ...require('./FakeMember'),
   ...require('@ellementul/uee-core'),
   ...require('@ellementul/uee-ws-transport'),
