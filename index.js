@@ -9,6 +9,6 @@ module.exports = {
   events: {
     ...require('@ellementul/uee-core').events,
     ...require('@ellementul/uee-timeticker').events,
-    ...require('@ellementul/simple-uee-manager').events
+    ...require('./Room').events
   }
 }

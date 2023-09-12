@@ -53,4 +53,4 @@ class Room {
   }
 }
 
-module.exports = { Room }
+module.exports = { Room, events: { buildEvent, openEvent } }
