@@ -5,13 +5,11 @@ class UnitedEventsNode {
     this.room = room
   }
 
-  build(Transport) {
+  build(transport) {
     this.room.build(this.getConfig())
 
-    if(Transport) {
-      const transport = new Transport(this.getConfig())
+    if(transport)
       this.room.provider.setTransport(transport)
-    }
   }
 
   run() {
