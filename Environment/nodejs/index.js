@@ -1,3 +1,5 @@
+const { events: { error: errorLogEvent } } = require('@ellementul/uee-core')
+
 class UnitedEventsNode {
   constructor(room) {
     if(typeof room !== "object") throw new TypeError("Constructor waits for object of class Room!")
@@ -26,6 +28,28 @@ class UnitedEventsNode {
       }
 
     return config
+  }
+
+  setupLogging({ 
+    logging = null,
+    isShowErrors = true
+  }) {
+    if(logging && isShowErrors) {
+      this.room.provider.setLogging(payload => {
+        this.showErrors(payload)
+        logging(payload)
+      })
+    }
+    else if(logging) {
+      this.room.provider.setLogging(logging)
+    }
+    else if(isShowErrors) {
+      this.room.provider.setLogging(payload => this.showErrors(payload))
+    }
+  }
+  showErrors(payload) {
+    if(errorLogEvent.isValid(payload.message))
+      console.error(payload)
   }
 }
 
