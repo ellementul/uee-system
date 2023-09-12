@@ -4,7 +4,8 @@ const type = Types.Object.Def({
   access: "Local",
   system: "Cooperation",
   entity: "Room",
-  state: "Builded"
+  state: "Builded",
+  config: Types.Object.Def({}, true)
 })
 
 module.exports = EventFactory(type)

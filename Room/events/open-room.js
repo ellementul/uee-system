@@ -5,7 +5,8 @@ const type = Types.Object.Def({
   system: "Cooperation",
   entity: "Room",
   uuid: Types.UUID.Def(),
-  state: "Open"
+  state: "Open",
+  config: Types.Object.Def({}, true)
 })
 
 module.exports = EventFactory(type)

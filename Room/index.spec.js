@@ -21,11 +21,15 @@ describe('Testing Room', () => {
     ])
 
     room.addMember(testMember)
-    room.build()
+    room.build({ test: true })
     expect(buildCallback).toHaveBeenCalled()
+    expect(buildCallback).toHaveBeenCalledWith({
+      ...buildEvent.create(),
+      config: { test: true }
+    })
   })
 
-  test('Open Room Without Transport', () => {
+  test('Open Room', () => {
     const room = new Room
 
     const openCallback = jest.fn()
@@ -35,7 +39,12 @@ describe('Testing Room', () => {
 
     room.addMember(testMember)
     room.build()
-    room.open()
+    room.open({ test: true })
     expect(openCallback).toHaveBeenCalled()
+    expect(openCallback).toHaveBeenCalledWith({
+      ...openEvent.create(),
+      uuid: room.uuid,
+      config: { test: true }
+    })
   })
 })
