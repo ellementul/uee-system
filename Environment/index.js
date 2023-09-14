@@ -1,6 +1,6 @@
 const { events: { error: errorLogEvent } } = require('@ellementul/uee-core')
 
-class UnitedEventsNode {
+class UnitedEventsEnv {
   constructor(room) {
     if(typeof room !== "object") throw new TypeError("Constructor waits for object of class Room!")
 
@@ -53,4 +53,4 @@ class UnitedEventsNode {
   }
 }
 
-module.exports = { UnitedEventsNode }
+module.exports = { UnitedEventsEnv }

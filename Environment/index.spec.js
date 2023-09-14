@@ -3,18 +3,18 @@ const { MockMember } = require('../FakeMember')
 
 const { Room } = require('../Room')
 
-const { UnitedEventsNode } = require('./index')
+const { UnitedEventsEnv } = require('./index')
 const openEvent = require('../Room/events/open-room')
 
 
 describe('Testing Constructor and Config', () => {
   test('Constructor Env', () => {
-    const env = new UnitedEventsNode(new Room)
+    const env = new UnitedEventsEnv(new Room)
     expect(env).toBeDefined()
   })
 
   test('Build and Run', () => {
-    const env = new UnitedEventsNode(new Room)
+    const env = new UnitedEventsEnv(new Room)
 
     const openCallback = jest.fn()
     env.build()
@@ -26,7 +26,7 @@ describe('Testing Constructor and Config', () => {
   })
 
   test('Get config', () => {
-    const env = new UnitedEventsNode(new Room)
+    const env = new UnitedEventsEnv(new Room)
     expect(env.getConfig()).toEqual({
       test: "config", 
       env: {}
@@ -34,7 +34,7 @@ describe('Testing Constructor and Config', () => {
   })
 
   test('Get config without config file', () => {
-    const env = new UnitedEventsNode(new Room)
+    const env = new UnitedEventsEnv(new Room)
     expect(env.getConfig()).toEqual({
       test: "config", 
       env: {}
@@ -42,7 +42,7 @@ describe('Testing Constructor and Config', () => {
   })
 
   test('Get config with Env vars', () => {
-    const env = new UnitedEventsNode(new Room)
+    const env = new UnitedEventsEnv(new Room)
     expect(env.getConfig({ env: ["NODE_ENV"] })).toEqual({
       test: "config",
       env: {
@@ -75,7 +75,7 @@ describe('Integration test', () => {
     ]))
     
 
-    const env = new UnitedEventsNode(room)
+    const env = new UnitedEventsEnv(room)
 
     env.build()
     env.run()
