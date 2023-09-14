@@ -29,7 +29,10 @@ describe('Testing Constructor and Config', () => {
     const env = new UnitedEventsEnv(new Room)
     expect(env.getConfig()).toEqual({
       test: "config", 
-      env: {}
+      env: {
+        nodejsApi: true,
+        browserApi: false
+      }
     })
   })
 
@@ -37,7 +40,10 @@ describe('Testing Constructor and Config', () => {
     const env = new UnitedEventsEnv(new Room)
     expect(env.getConfig()).toEqual({
       test: "config", 
-      env: {}
+      env: {
+        nodejsApi: true,
+        browserApi: false
+      }
     })
   })
 
@@ -46,7 +52,9 @@ describe('Testing Constructor and Config', () => {
     expect(env.getConfig({ env: ["NODE_ENV"] })).toEqual({
       test: "config",
       env: {
-        NODE_ENV: "test"
+        NODE_ENV: "test",
+        nodejsApi: true,
+        browserApi: false
       }
     })
   })

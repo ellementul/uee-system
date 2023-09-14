@@ -21,7 +21,13 @@ class UnitedEventsEnv {
   getConfig({ env } = {}) {
     const config = require('./uee.config.json')
 
-    config.env = {}
+    const isBrowser = new Function("try {return this===window;}catch(e){ return false;}")
+    const isNode = new Function("try {return this===global;}catch(e){return false;}")
+
+    config.env = {
+      nodejsApi: isNode(),
+      browserApi: isBrowser()
+    }
     if(env)
       for (const envVar of env) {
         config.env[envVar] = process.env[envVar]
