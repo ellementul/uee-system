@@ -1,5 +1,7 @@
 const { events: { error: errorLogEvent } } = require('@ellementul/uee-core')
 
+const appRoot = require('app-root-path')
+
 class UnitedEventsEnv {
   constructor(room) {
     if(typeof room !== "object") throw new TypeError("Constructor waits for object of class Room!")
@@ -19,7 +21,7 @@ class UnitedEventsEnv {
   }
 
   getConfig({ env } = {}) {
-    const config = require('./uee.config.json')
+    const config = require(appRoot + '/uee.config.json')
 
     const isBrowser = new Function("try {return this===window;}catch(e){ return false;}")
     const isNode = new Function("try {return this===global;}catch(e){return false;}")
