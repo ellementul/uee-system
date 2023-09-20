@@ -39,8 +39,8 @@ class UnitedEventsEnv {
       }
     
     return {
-      env: envValues,
-      ...config
+      ...config,
+      env: envValues
     }
   }
 
