@@ -27,17 +27,21 @@ class UnitedEventsEnv {
     const isBrowser = new Function("try {return this===window;}catch(e){ return false;}")
     const isNode = new Function("try {return this===global;}catch(e){return false;}")
 
-    config.env = {
+    const envValues = {
       nodejsApi: isNode(),
       browserApi: isBrowser(),
       baseUrl
     }
+
     if(env)
       for (const envVar of env) {
-        config.env[envVar] = process.env[envVar]
+        envValues[envVar] = process.env[envVar]
       }
-
-    return config
+    
+    return {
+      env: envValues,
+      ...config
+    }
   }
 
   setupLogging({ 

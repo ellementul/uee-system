@@ -50,6 +50,26 @@ describe('Testing Constructor and Config', () => {
     })
   })
 
+  test('Double config', () => {
+    const env = new UnitedEventsEnv(new Room)
+    expect(env.getConfig()).toEqual({
+      test: "config", 
+      env: {
+        nodejsApi: true,
+        browserApi: false
+      }
+    })
+
+    expect(env.getConfig({ baseUrl: "localhost" })).toEqual({
+      test: "config", 
+      env: {
+        nodejsApi: true,
+        browserApi: false,
+        baseUrl: "localhost"
+      }
+    })
+  })
+
   test('Get config without config file', () => {
     const env = new UnitedEventsEnv(new Room)
     expect(env.getConfig()).toEqual({
