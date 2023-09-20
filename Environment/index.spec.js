@@ -4,6 +4,7 @@ const { MockMember } = require('../FakeMember')
 const { Room } = require('../Room')
 
 const { UnitedEventsEnv } = require('./index')
+const buildEvent = require('../Room/events/build-room')
 const openEvent = require('../Room/events/open-room')
 
 
@@ -16,9 +17,22 @@ describe('Testing Constructor and Config', () => {
   test('Build and Run', () => {
     const env = new UnitedEventsEnv(new Room)
 
+    const buildCallback = jest.fn()
+    env.room.provider.onEvent(buildEvent, buildCallback)
+    env.build({ url: "localhost", onRecieve: jest.fn(), send: jest.fn() })
+    expect(buildCallback).toHaveBeenCalledWith({
+      ...buildEvent.create(),
+      config: {
+        test: "config", 
+        env: {
+          nodejsApi: true,
+          browserApi: false,
+          baseUrl: "localhost"
+        }
+      }
+    })
+    
     const openCallback = jest.fn()
-    env.build()
-
     env.room.provider.onEvent(openEvent, openCallback)
 
     env.run()
@@ -54,7 +68,7 @@ describe('Testing Constructor and Config', () => {
       env: {
         NODE_ENV: "test",
         nodejsApi: true,
-        browserApi: false
+        browserApi: false,
       }
     })
   })

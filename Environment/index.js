@@ -9,8 +9,9 @@ class UnitedEventsEnv {
     this.room = room
   }
 
-  build(transport) {
-    this.room.build(this.getConfig())
+  build(transport, env = []) {
+    const baseUrl = transport ? transport.url : null
+    this.room.build(this.getConfig({ baseUrl, env }))
 
     if(transport)
       this.room.provider.setTransport(transport)
@@ -20,7 +21,7 @@ class UnitedEventsEnv {
     this.room.open(this.getConfig())
   }
 
-  getConfig({ env } = {}) {
+  getConfig({ env, baseUrl } = {}) {
     const config = require(appRoot + '/uee.config.json')
 
     const isBrowser = new Function("try {return this===window;}catch(e){ return false;}")
@@ -28,7 +29,8 @@ class UnitedEventsEnv {
 
     config.env = {
       nodejsApi: isNode(),
-      browserApi: isBrowser()
+      browserApi: isBrowser(),
+      baseUrl
     }
     if(env)
       for (const envVar of env) {
