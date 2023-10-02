@@ -1,6 +1,10 @@
 const { events: { error: errorLogEvent } } = require('@ellementul/uee-core')
 
-const appRoot = require('app-root-path')
+const isBrowser = new Function("try {return this===window;}catch(e){ return false;}")
+const isNode = new Function("try {return this===global;}catch(e){return false;}")
+
+const appRoot = isNode() ? require('app-root-path') : ''
+const config = require(appRoot + 'uee.config.json')
 
 class UnitedEventsEnv {
   constructor(room) {
@@ -22,18 +26,13 @@ class UnitedEventsEnv {
   }
 
   getConfig({ env, baseUrl } = {}) {
-    const config = require(appRoot + '/uee.config.json')
-
-    const isBrowser = new Function("try {return this===window;}catch(e){ return false;}")
-    const isNode = new Function("try {return this===global;}catch(e){return false;}")
-
     const envValues = {
       nodejsApi: isNode(),
       browserApi: isBrowser(),
       baseUrl
     }
 
-    if(env)
+    if(isNode() && env)
       for (const envVar of env) {
         envValues[envVar] = process.env[envVar]
       }
