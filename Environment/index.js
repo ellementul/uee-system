@@ -3,8 +3,8 @@ const { events: { error: errorLogEvent } } = require('@ellementul/uee-core')
 const isBrowser = new Function("try {return this===window;}catch(e){ return false;}")
 const isNode = new Function("try {return this===global;}catch(e){return false;}")
 
-const appRoot = isNode() ? require('app-root-path') : ''
-const config = require(appRoot + 'uee.config.json')
+const appRoot = isNode() ? require('app-root-path') : '.'
+const config = require(appRoot + '/uee.config.json')
 
 class UnitedEventsEnv {
   constructor(room) {
