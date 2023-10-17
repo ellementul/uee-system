@@ -1,4 +1,6 @@
-const { Types, Member, events: { change: changeEvent } } = require('@ellementul/uee-core')
+import { Types, Member, events } from '@ellementul/uee-core'
+
+const { changeEvent } = events
 const stateType = Types.Key.Def()
 
 class StateMember extends Member {
@@ -58,4 +60,6 @@ class StateMember extends Member {
 
 }
 
-module.exports = { StateMember }
+StateMember.events = events
+
+export { StateMember, events }

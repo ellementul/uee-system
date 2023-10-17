@@ -1,11 +1,12 @@
 {
   "name": "@ellementul/united-events-environment",
-  "version": "1.7.4",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node ./index.mjs",
-    "test": "node node_modules/jest/bin/jest.js"
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -18,14 +19,11 @@
   },
   "homepage": "https://github.com/ellementul/uee-system#readme",
   "dependencies": {
-    "@ellementul/simple-uee-manager": "^0.9.0",
-    "@ellementul/uee-core": "^1.5.1",
-    "@ellementul/uee-timeticker": "^1.4.0",
-    "@ellementul/uee-ws-transport": "^0.7.2",
-    "app-root-path": "^3.1.0"
+    "@ellementul/uee-core": "^2.0.1",
+    "@ellementul/uee-timeticker": "^2.0.0"
   },
   "devDependencies": {
-    "@ellementul/uee-ws-server": "^0.8.1",
-    "jest": "^29.3.1"
+    "ava": "^5.3.1",
+    "sinon": "^16.1.0"
   }
 }

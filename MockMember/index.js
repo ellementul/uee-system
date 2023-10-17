@@ -10,4 +10,4 @@ function MockMember(Member, spyingEvents) {
   }
 }
 
-module.exports = { MockMember }
+export { MockMember }

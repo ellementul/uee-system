@@ -1,10 +1,5 @@
-const { events: { error: errorLogEvent } } = require('@ellementul/uee-core')
-
-const isBrowser = new Function("try {return this===window;}catch(e){ return false;}")
-const isNode = new Function("try {return this===global;}catch(e){return false;}")
-
-const appRoot = isNode() ? require('app-root-path') : '.'
-const config = require(appRoot + '/uee.config.json')
+import { events } from '@ellementul/uee-core'
+const { errorEvent } = events
 
 class UnitedEventsEnv {
   constructor(room) {
@@ -15,31 +10,33 @@ class UnitedEventsEnv {
 
   build(transport, env = []) {
     const baseUrl = transport ? transport.url : null
-    this.room.build(this.getConfig({ baseUrl, env }))
 
-    if(transport)
-      this.room.provider.setTransport(transport)
+    this.getConfig({ baseUrl, env })
+    .then(config => {
+      this.room.build(config)
+
+      if(transport)
+        this.room.provider.setTransport(transport)
+    })
+    .catch(() => { throw new Error(`I cannot load config from ${baseUrl}`) })
+    
   }
 
   run() {
-    this.room.open(this.getConfig())
+    this.getConfig()
+    .then(config => {
+      this.room.open(config)
+    })
+    .catch(() => { throw new Error(`I cannot load config from ${baseUrl}`) })
   }
 
-  getConfig({ env, baseUrl } = {}) {
-    const envValues = {
-      nodejsApi: isNode(),
-      browserApi: isBrowser(),
-      baseUrl
-    }
+  async getConfig({ baseUrl = './' } = {}) {
 
-    if(isNode() && env)
-      for (const envVar of env) {
-        envValues[envVar] = process.env[envVar]
-      }
+    const config = await fetch(baseUrl + 'uee.config.json')
     
     return {
       ...config,
-      env: envValues
+      env:  { baseUrl }
     }
   }
 
@@ -61,9 +58,9 @@ class UnitedEventsEnv {
     }
   }
   showErrors(payload) {
-    if(errorLogEvent.isValid(payload.message))
+    if(errorEvent.isValid(payload.message))
       console.error(payload)
   }
 }
 
-module.exports = { UnitedEventsEnv }
+export { UnitedEventsEnv }

@@ -1,4 +1,4 @@
-const { EventFactory, Types } = require('@ellementul/uee-core')
+import { EventFactory, Types } from '@ellementul/uee-core'
 
 const type = Types.Object.Def({
   access: "Public",
@@ -9,4 +9,4 @@ const type = Types.Object.Def({
   config: Types.Object.Def({}, true)
 })
 
-module.exports = EventFactory(type)
+export default EventFactory(type)

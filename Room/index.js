@@ -1,6 +1,6 @@
-const { Provider, Types } = require('@ellementul/uee-core')
-const buildEvent = require('./events/build-room')
-const openEvent = require('./events/open-room')
+import { Provider, Types } from '@ellementul/uee-core'
+import buildEvent from './events/build-room.js'
+import openEvent from './events/open-room.js'
 
 const INIT = Symbol()
 const BUILDED = Symbol()
@@ -52,5 +52,6 @@ class Room {
     })
   }
 }
-
-module.exports = { Room, events: { buildEvent, openEvent } }
+const events = { buildEvent, openEvent }
+Room.events = events
+export { Room, events }
