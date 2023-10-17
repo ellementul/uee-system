@@ -6,13 +6,17 @@ class UnitedEventsEnv {
     if(typeof room !== "object") throw new TypeError("Constructor waits for object of class Room!")
 
     this.room = room
+
+    this.baseUrl = null
   }
 
   build(transport, env = []) {
-    const baseUrl = transport ? transport.url : null
+    const baseUrl = transport ? transport.url : this.baseUrl
 
     this.getConfig({ baseUrl, env })
     .then(config => {
+      this.baseUrl = baseUrl
+
       this.room.build(config)
 
       if(transport)
@@ -23,7 +27,8 @@ class UnitedEventsEnv {
   }
 
   run() {
-    this.getConfig()
+    const baseUrl = this.baseUrl
+    this.getConfig({ baseUrl })
     .then(config => {
       this.room.open(config)
     })
