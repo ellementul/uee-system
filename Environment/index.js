@@ -36,7 +36,8 @@ class UnitedEventsEnv {
 
   async getConfig({ baseUrl = './' } = {}) {
 
-    const config = await fetch(baseUrl + 'uee.config.json')
+    const response = await fetch(baseUrl + 'uee.config.json')
+    const config = await response.json()
     
     return {
       ...config,
