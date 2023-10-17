@@ -12,11 +12,10 @@ class UnitedEventsEnv {
 
   build(transport, env = []) {
     const baseUrl = transport ? transport.url : this.baseUrl
+    this.baseUrl = baseUrl
 
     this.getConfig({ baseUrl, env })
     .then(config => {
-      this.baseUrl = baseUrl
-
       this.room.build(config)
 
       if(transport)
