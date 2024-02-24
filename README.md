@@ -37,13 +37,13 @@ The Event is defined via the Types and the EventFactory modules.
 The Types allow to you define some structure of data for your event.
 The EventFactory creates the Event from the Type of data.
 ```js
-const { EventFactory, Types } = require('@ellementul/uee-core')
+import { EventFactory, Types } from '@ellementul/united-events-environment'
 const type = Types.Object.Def({
   system: "NameOfYourSystem",
   entity: "NameOfEntityWhichIsChanged",
   state: "DataOfChangedEntity"
 }, true) 
-module.exports = EventFactory(type)
+export default = EventFactory(type)
 ```
 If the second argument for Types.Object.Def method is "true", then extra properties in the Event don't count while getting the Event by the Member.
 If the second argument for Types.Object.Def method is "false", any extra properties will change the Type of Event while getting the Event by the Member.
@@ -52,7 +52,7 @@ If the second argument for Types.Object.Def method is "false", any extra propert
 #### Inherit Member
 You need to inherit your new Member from the abstract Member class from the UEE core.
 ```js
-const { Member } = require('@ellementul/uee-core')
+import { Member } from '@ellementul/united-events-environment'
 class YourMember extends Member {}
 ```
 
@@ -61,8 +61,8 @@ You can define event handlers in any Member method.
 But the easiest way to do this is in the constructor.
 You can use one of the methods as event handler.
 ```js
-const outsideEvent = require('./events/outside_event')
-const yourEvent = require('./events/your_event')
+import outsideEvent from './events/outside_event'
+import yourEvent = from './events/your_event')
 ...
   constructor() {
     super()
@@ -80,105 +80,16 @@ const yourEvent = require('./events/your_event')
 #### Export
 For export, return the object with the class itself and public events
 ```js
-module.exports = { 
+const exportedEvents = { // Export of your events
+  // outside: outsideEvent, // We don't export outside events!
+  your: yourEvent
+}
+
+export { 
   YourMember, // Export of your member
-  events: { // Export of your events
-    // outside: outsideEvent, // We don't export outside events!
-    your: yourEvent
-  }
+  events: exportedEvents
 }
 ```
 
-#### All code of example
-```js
-const { Member } = require('@ellementul/uee-core')
-
-const outsideEvent = require('./events/outside_event')
-const yourEvent = require('./events/your_event')
-class YourMember extends Member {
-  constructor() {
-    super()
-
-    this.onEvent(outsideEvent, () => this.callback()) // Subscribing on event
-    
-    this.role = "DefaultMemberRole" // The manager needs it, and manager can change it
-  }
-
-  callback () {
-    this.send(yourEvent, {
-      state: "NewYourStateOfYourEntity" // Fill the state property in the event
-      // If we don't fill the property, this property will be random.
-    })
-  }
-}
-
-module.exports = { 
-  YourMember, // Export of your member
-  events: { // Export of your events
-    // outside: outsideEvent, // We don't export outside events!
-    your: yourEvent
-  }
-}
-```
 ### Define and run the Environment
-#### Run server for the Transport
-You can run the server for the Transport module locally
-##### Start server
-```js
-const WSServer = require('@ellementul/uee-ws-server/WsServer')
-const port = 8081
-const server = new WSServer(port)
-await server.start(false)
-```
-##### Stop server
-```js
-await server.close()
-```
-
-#### Define the Environment
-##### Define Members List
-You need to define the list of Roles and Members for them to create the Environment
-```js
-const { Ticker } = require('@ellementul/uee-timeticker')
-const { YourMemberClass } = require('...')
-
-const membersList = {
-  roles: [
-    { // Required, it will create time events
-      role: "Ticker",
-      memberConstructor: Ticker
-    },
-    {
-      role: "YouMember", // Role for this Your Member,The Environment ca create some instances for one role
-      memberConstructor: YourMemberClass // The Environment needs class to create a instance of the Member
-    }
-  ]
-}
-```
-##### Create Environment
-```js
-const { WsTransport } = require('@ellementul/uee-ws-transport')
-
-const membersList = {...}
-env = new UEE({
-  Transport: WsTransport,  //Required if there is multiplayer
-  membersList
-})
-```
-
-#### Run the Environment
-##### If you run singleplayer
-```js
-env.run({ isHost: true })
-```
-##### If you run multiplayer
-```js
-// Start host
-env.run({
-  isHost: true,
-  signalServerAddress: server.domain.url
-})
-
-// Start as client
-env.run({signalServerAddress: server.domain.url})
-```
+..............
